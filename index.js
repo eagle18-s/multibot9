@@ -1,6 +1,5 @@
 const { Client, GatewayIntentBits } = require('discord.js');
 const { joinVoiceChannel } = require('@discordjs/voice');
-const fs = require('fs');
 const express = require('express');
 
 const app = express();
@@ -9,9 +8,20 @@ const PORT = process.env.PORT || 3000;
 // Botların anlık durumlarını tutacağımız nesne
 const botStatuses = {};
 
-const tokensData = JSON.parse(fs.readFileSync('./tokens.json', 'utf8'));
+// Tokenleri doğrudan burada tanımlıyoruz (Render hata vermez)
+const tokensData = [
+    { id: 1, token: "MTU2Nzk1Mzc1MTMzNDE5MTI4OA.G8CcGt.RxcjxM6h0zAfKQ-f8GxtDT6e9Rs00kxcdIxyCA" },
+    { id: 2, token: "MTU2Nzk1NDA2MDgxMDkxMTkzNg.GnM0gs.ljprkqlaKgn0I3ReJWmuC5dQnJirQ3yBd34AvU" },
+    { id: 3, token: "MTU2Nzk1Njg1OTE5NTc1NjYxNA.GM86sS.R4tz6gAAwEsLfHT1mfjmYRlgOggNUNavvRIJXE" },
+    { id: 4, "token": "MTU2Nzk1NDI5MTc5NTMwMDM4Mg.GQAkiW.ezyDLVQb8tgZ9lNZVhwVmNWCXQ6krSnMWij0bA" },
+    { id: 5, "token": "MTU2Nzk1NDQ5Mjg5NTUyNzAzMg.GZCWek.WvtLA0PFn3L683zK2oH78T3lj_JNZXXpdijQ30" },
+    { id: 6, "token": "MTU2Nzk1NDcwNjg5NzA0MzQ1Ng.GDiDj1.U7ZdRtcs7VtEJT6mGFsmEnWZ53hhIIGg9ZbGcA" },
+    { id: 7, "token": "MTU2Nzk1NjM3Njc3OTc1MTUxNA.GKfn-7.LyCq1Uj8zalfAdfL0y6_KYRxTa30qtiH42MeH0" },
+    { id: 8, "token": "MTU2Nzk1NjYwMzY1Mzg1MzM5NQ.GVXfLr.sdrYjZ4wlrnnhmlV2fGPXT0zZSDkaSjEQ1ijPQ" },
+    { id: 9, "token": "MTU2Nzk1NzA2MjAxNTY0NzkzNA.G-WTc9.V2WZHoFpJ1uHxc_ywYvDic9uhu_WRMZ-mNBHuY" }
+];
 
-tokensData.forEach((botData, index) => {
+tokensData.forEach((botData) => {
     const botId = botData.id;
     botStatuses[botId] = { status: "Çevrimdışı", server: "Yok", channel: "Yok", tag: `Bot ${botId}` };
 
@@ -40,7 +50,6 @@ tokensData.forEach((botData, index) => {
                 return;
             }
 
-            // Sıralı giriş için bot ID'sine göre gecikme (1. hemen, diğerleri sırayla 1.5 saniye arayla)
             const delay = (botId - 1) * 1500;
 
             setTimeout(async () => {
@@ -68,7 +77,6 @@ tokensData.forEach((botData, index) => {
     });
 });
 
-// Pro Paneli (Web Sayfası)
 app.get('/', (req, res) => {
     let html = `
     <html>
@@ -81,7 +89,7 @@ app.get('/', (req, res) => {
                 table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #1e293b; border-radius: 8px; overflow: hidden; }
                 th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #334155; }
                 th { background: #0284c7; color: white; }
-                .aktif { color: #4ade80; font-weight: bold; }
+                .aktif { code { color: #4ade80; } font-weight: bold; color: #4ade80; }
                 .hata { color: #f87171; font-weight: bold; }
             </style>
         </head>
