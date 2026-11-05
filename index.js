@@ -5,24 +5,29 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Botların anlık durumlarını tutacağımız nesne
 const botStatuses = {};
 
-// Yeni tokenler buraya eklendi
+// Tokenleri Render Environment Variables (gizli değişkenler) üzerinden alıyoruz
 const tokensData = [
-    { id: 1, token: "MTU2Nzk1Mzc1MTMzNDE5MTI4OA.GacO79.Gn0x6Xw3Hd59G8lGef3lez0EcdYygByDyh3qs0" },
-    { id: 2, token: "MTU2Nzk1NDA2MDgxMDkxMTkzNg.Gnk0Q5.T6Tuk6CmahtJxqp-pvVv_9Yse6XVi9PRjRnOeI" },
-    { id: 3, token: "MTU2Nzk1NDI5MTc5NTMwMDM4Mg.GWG_7-.q5dUnn6U40jmxR5Ifo6Xb3fVrW8A_iu-3RZTyY" },
-    { id: 4, token: "MTU2Nzk1NDQ5Mjg5NTUyNzAzMg.GoOoCt.enaSoKyFWPkLNL6EckQEW16Q52LGf8ZL9D1PLQ" },
-    { id: 5, token: "MTU2Nzk1NDcwNjg5NzA0MzQ1Ng.GbRspo.Ax0Oyv6SLSxlQVCh-80MjSIlRYTGfO_73Ox80s" },
-    { id: 6, token: "MTU2Nzk1NjM3Njc3OTc1MTUxNA.G8Rcfv.3YmLQmeeS7MrhaeH5Mp7Tb0cf-fEruEjWSxjEo" },
-    { id: 7, token: "MTU2Nzk1NjYwMzY1Mzg1MzM5NQ.GNLyEa.tgN5_l4b-3GMzKrDz0rv97IYh0yxglLk55FizA" },
-    { id: 8, token: "MTU2Nzk1Njg1OTE5NTc1NjYxNA.GyYGpO.zitZ1ApN5p7-mxDui6brD3sg-Am3S0muUcVXy0" },
-    { id: 9, token: "MTU2Nzk1NzA2MjAxNTY0NzkzNA.G9a7r8.FoaUjq70HZM-PHvZlUFxY6nxjsV0mbGeuHA84k" }
+    { id: 1, token: process.env.BOT_TOKEN_1 },
+    { id: 2, token: process.env.BOT_TOKEN_2 },
+    { id: 3, token: process.env.BOT_TOKEN_3 },
+    { id: 4, token: process.env.BOT_TOKEN_4 },
+    { id: 5, token: process.env.BOT_TOKEN_5 },
+    { id: 6, token: process.env.BOT_TOKEN_6 },
+    { id: 7, token: process.env.BOT_TOKEN_7 },
+    { id: 8, token: process.env.BOT_TOKEN_8 },
+    { id: 9, token: process.env.BOT_TOKEN_9 }
 ];
 
 tokensData.forEach((botData) => {
     const botId = botData.id;
+    if (!botData.token) {
+        console.log(`[UYARI] Bot ${botId} için token bulunamadı!`);
+        botStatuses[botId] = { status: "Hata (Token Yok)", server: "Yok", channel: "Yok", tag: `Bot ${botId}` };
+        return;
+    }
+
     botStatuses[botId] = { status: "Çevrimdışı", server: "Yok", channel: "Yok", tag: `Bot ${botId}` };
 
     const client = new Client({
@@ -119,3 +124,4 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Web Paneli ${PORT} portunda çalışıyor.`);
 });
+        
