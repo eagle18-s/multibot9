@@ -8,17 +8,17 @@ const PORT = process.env.PORT || 3000;
 // Botların anlık durumlarını tutacağımız nesne
 const botStatuses = {};
 
-// Tokenleri doğrudan burada tanımlıyoruz (Render hata vermez)
+// Yeni tokenler buraya eklendi
 const tokensData = [
-    { id: 1, token: "MTU2Nzk1Mzc1MTMzNDE5MTI4OA.G8CcGt.RxcjxM6h0zAfKQ-f8GxtDT6e9Rs00kxcdIxyCA" },
-    { id: 2, token: "MTU2Nzk1NDA2MDgxMDkxMTkzNg.GnM0gs.ljprkqlaKgn0I3ReJWmuC5dQnJirQ3yBd34AvU" },
-    { id: 3, token: "MTU2Nzk1Njg1OTE5NTc1NjYxNA.GM86sS.R4tz6gAAwEsLfHT1mfjmYRlgOggNUNavvRIJXE" },
-    { id: 4, "token": "MTU2Nzk1NDI5MTc5NTMwMDM4Mg.GQAkiW.ezyDLVQb8tgZ9lNZVhwVmNWCXQ6krSnMWij0bA" },
-    { id: 5, "token": "MTU2Nzk1NDQ5Mjg5NTUyNzAzMg.GZCWek.WvtLA0PFn3L683zK2oH78T3lj_JNZXXpdijQ30" },
-    { id: 6, "token": "MTU2Nzk1NDcwNjg5NzA0MzQ1Ng.GDiDj1.U7ZdRtcs7VtEJT6mGFsmEnWZ53hhIIGg9ZbGcA" },
-    { id: 7, "token": "MTU2Nzk1NjM3Njc3OTc1MTUxNA.GKfn-7.LyCq1Uj8zalfAdfL0y6_KYRxTa30qtiH42MeH0" },
-    { id: 8, "token": "MTU2Nzk1NjYwMzY1Mzg1MzM5NQ.GVXfLr.sdrYjZ4wlrnnhmlV2fGPXT0zZSDkaSjEQ1ijPQ" },
-    { id: 9, "token": "MTU2Nzk1NzA2MjAxNTY0NzkzNA.G-WTc9.V2WZHoFpJ1uHxc_ywYvDic9uhu_WRMZ-mNBHuY" }
+    { id: 1, token: "MTU2Nzk1Mzc1MTMzNDE5MTI4OA.GacO79.Gn0x6Xw3Hd59G8lGef3lez0EcdYygByDyh3qs0" },
+    { id: 2, token: "MTU2Nzk1NDA2MDgxMDkxMTkzNg.Gnk0Q5.T6Tuk6CmahtJxqp-pvVv_9Yse6XVi9PRjRnOeI" },
+    { id: 3, token: "MTU2Nzk1NDI5MTc5NTMwMDM4Mg.GWG_7-.q5dUnn6U40jmxR5Ifo6Xb3fVrW8A_iu-3RZTyY" },
+    { id: 4, token: "MTU2Nzk1NDQ5Mjg5NTUyNzAzMg.GoOoCt.enaSoKyFWPkLNL6EckQEW16Q52LGf8ZL9D1PLQ" },
+    { id: 5, token: "MTU2Nzk1NDcwNjg5NzA0MzQ1Ng.GbRspo.Ax0Oyv6SLSxlQVCh-80MjSIlRYTGfO_73Ox80s" },
+    { id: 6, token: "MTU2Nzk1NjM3Njc3OTc1MTUxNA.G8Rcfv.3YmLQmeeS7MrhaeH5Mp7Tb0cf-fEruEjWSxjEo" },
+    { id: 7, token: "MTU2Nzk1NjYwMzY1Mzg1MzM5NQ.GNLyEa.tgN5_l4b-3GMzKrDz0rv97IYh0yxglLk55FizA" },
+    { id: 8, token: "MTU2Nzk1Njg1OTE5NTc1NjYxNA.GyYGpO.zitZ1ApN5p7-mxDui6brD3sg-Am3S0muUcVXy0" },
+    { id: 9, token: "MTU2Nzk1NzA2MjAxNTY0NzkzNA.G9a7r8.FoaUjq70HZM-PHvZlUFxY6nxjsV0mbGeuHA84k" }
 ];
 
 tokensData.forEach((botData) => {
@@ -89,7 +89,7 @@ app.get('/', (req, res) => {
                 table { width: 100%; border-collapse: collapse; margin-top: 20px; background: #1e293b; border-radius: 8px; overflow: hidden; }
                 th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #334155; }
                 th { background: #0284c7; color: white; }
-                .aktif { code { color: #4ade80; } font-weight: bold; color: #4ade80; }
+                .aktif { color: #4ade80; font-weight: bold; }
                 .hata { color: #f87171; font-weight: bold; }
             </style>
         </head>
