@@ -7,7 +7,6 @@ const PORT = process.env.PORT || 3000;
 
 const botStatuses = {};
 
-// Tokenleri Render Environment Variables (gizli değişkenler) üzerinden alıyoruz
 const tokensData = [
     { id: 1, token: process.env.BOT_TOKEN_1 },
     { id: 2, token: process.env.BOT_TOKEN_2 },
@@ -23,7 +22,6 @@ const tokensData = [
 tokensData.forEach((botData) => {
     const botId = botData.id;
     if (!botData.token) {
-        console.log(`[UYARI] Bot ${botId} için token bulunamadı!`);
         botStatuses[botId] = { status: "Hata (Token Yok)", server: "Yok", channel: "Yok", tag: `Bot ${botId}` };
         return;
     }
@@ -59,10 +57,12 @@ tokensData.forEach((botData) => {
 
             setTimeout(async () => {
                 try {
+                    // Hər bot üçün fərqli group təyin edirik ki, bağlantılar bir-birini qırmasın
                     joinVoiceChannel({
                         channelId: voiceChannel.id,
                         guildId: voiceChannel.guild.id,
                         adapterCreator: voiceChannel.guild.voiceAdapterCreator,
+                        group: `bot_${botId}`
                     });
 
                     botStatuses[botId].server = `${voiceChannel.guild.name} (${voiceChannel.guild.id})`;
@@ -124,4 +124,4 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Web Paneli ${PORT} portunda çalışıyor.`);
 });
-        
+                                      
